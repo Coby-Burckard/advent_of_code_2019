@@ -24,6 +24,7 @@ function modifyArray(inputArray, index){
 }
 
 function fixIntCode(inputArray, index) {
+    let newIndex
     if (inputArray[index] == 99) {
         return inputArray[0]
     }
