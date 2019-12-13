@@ -13,11 +13,11 @@ function implement12(inputArray, index, parameters, opcode) {
     value1 = inputArray[inputArray[index+1]]
     value2 = inputArray[inputArray[index+2]]
     if (parameters.length == 1){
-        value1 = (parameters[0] == 0) ? inputArray[inputArray[index+1]] : inputArray[index+1]  
+        value1 = (parameters[0] == 0) ? inputArray[inputArray[index+1]] : (parameters[0] == 1) ? inputArray[index+1] : relativeBase + value1  
     }
     else if (parameters.length >= 2){
-        value1 = (parameters[0] == 0) ? inputArray[inputArray[index+1]] : inputArray[index+1] 
-        value2 = (parameters[1] == 0) ? inputArray[inputArray[index+2]] : inputArray[index+2]
+        value1 = (parameters[0] == 0) ? inputArray[inputArray[index+1]] : (parameters[0] == 1) ? inputArray[index+1] : relativeBase + value1 
+        value2 = (parameters[1] == 0) ? inputArray[inputArray[index+2]] : (parameters[0] == 1) ? inputArray[index+2] : relativeBase + value1
     }
 
     if (operation == '1') {
@@ -47,7 +47,7 @@ function implement4(inputArray, index, parameters) {
         value1 = inputArray[inputArray[index+1]]
     }
     else {
-        value1 = (parameters[0] == 0) ? inputArray[inputArray[index+1]] : inputArray[index+1] 
+        value1 = (parameters[0] == 0) ? inputArray[inputArray[index+1]] : (parameters[0] == 1) ? inputArray[index+1] : relativeBase + value1 
     }
     // console.log(`outputing values index = ${index+2}, value = ${value1}`)
     return [index+2, value1]
@@ -57,11 +57,11 @@ function implement5(inputArray, index, parameters){
     value1 = inputArray[inputArray[index+1]]
     value2 = inputArray[inputArray[index+2]]
     if (parameters.length == 1){
-        value1 = (parameters[0] == 0) ? inputArray[inputArray[index+1]] : inputArray[index+1]  
+        value1 = (parameters[0] == 0) ? inputArray[inputArray[index+1]] : (parameters[0] == 1) ? inputArray[index+1] : relativeBase + value1  
     }
     else if (parameters.length >= 2){
-        value1 = (parameters[0] == 0) ? inputArray[inputArray[index+1]] : inputArray[index+1] 
-        value2 = (parameters[1] == 0) ? inputArray[inputArray[index+2]] : inputArray[index+2]
+        value1 = (parameters[0] == 0) ? inputArray[inputArray[index+1]] : (parameters[0] == 1) ? inputArray[index+1] : relativeBase + value1 
+        value2 = (parameters[1] == 0) ? inputArray[inputArray[index+2]] : (parameters[0] == 1) ? inputArray[index+2] : relativeBase + value1
     }
     // console.log(`value1 = ${value1} value2=${value2}, setting index to ${(value1 != 0) ? value2 : index + 3}`)
     return (value1 != 0) ? value2 : index+=3
@@ -71,11 +71,11 @@ function implement6(inputArray, index, parameters){
     value1 = inputArray[inputArray[index+1]]
     value2 = inputArray[inputArray[index+2]]
     if (parameters.length == 1){
-        value1 = (parameters[0] == 0) ? inputArray[inputArray[index+1]] : inputArray[index+1]  
+        value1 = (parameters[0] == 0) ? inputArray[inputArray[index+1]] : (parameters[0] == 1) ? inputArray[index+1] : relativeBase + value1  
     }
     else if (parameters.length >= 2){
-        value1 = (parameters[0] == 0) ? inputArray[inputArray[index+1]] : inputArray[index+1] 
-        value2 = (parameters[1] == 0) ? inputArray[inputArray[index+2]] : inputArray[index+2]
+        value1 = (parameters[0] == 0) ? inputArray[inputArray[index+1]] : (parameters[0] == 1) ? inputArray[index+1] : relativeBase + value1 
+        value2 = (parameters[1] == 0) ? inputArray[inputArray[index+2]] : (parameters[0] == 1) ? inputArray[index+2] : relativeBase + value1
     }
     // console.log(`setting index to ${(value1 == 0) ? value2 : index + 3}`)
     return (value1 == 0) ? value2 : index+=3
@@ -86,11 +86,11 @@ function implement7(inputArray, index, parameters){
     value2 = inputArray[inputArray[index+2]]
     destination = inputArray[index+3]
     if (parameters.length == 1){
-        value1 = (parameters[0] == 0) ? inputArray[inputArray[index+1]] : inputArray[index+1]  
+        value1 = (parameters[0] == 0) ? inputArray[inputArray[index+1]] : (parameters[0] == 1) ? inputArray[index+1] : relativeBase + value1  
     }
     else if (parameters.length >= 2){
-        value1 = (parameters[0] == 0) ? inputArray[inputArray[index+1]] : inputArray[index+1] 
-        value2 = (parameters[1] == 0) ? inputArray[inputArray[index+2]] : inputArray[index+2]
+        value1 = (parameters[0] == 0) ? inputArray[inputArray[index+1]] : (parameters[0] == 1) ? inputArray[index+1] : relativeBase + value1 
+        value2 = (parameters[1] == 0) ? inputArray[inputArray[index+2]] : (parameters[0] == 1) ? inputArray[index+2] : relativeBase + value1
     }
     // console.log(`value1 ${value1}, value2 ${value2}, value1 < value2 ${value1<value2}... index ${destination} set to ${(value1 < value2) ? 1 : 0}`)
     inputArray[destination] = (value1 < value2) ? 1 : 0
@@ -101,19 +101,29 @@ function implement8(inputArray, index, parameters){
     value2 = inputArray[inputArray[index+2]]
     destination = inputArray[index+3]
     if (parameters.length == 1){
-        value1 = (parameters[0] == 0) ? inputArray[inputArray[index+1]] : inputArray[index+1]  
+        value1 = (parameters[0] == 0) ? inputArray[inputArray[index+1]] : (parameters[0] == 1) ? inputArray[index+1] : relativeBase + value1  
     }
     else if (parameters.length >= 2){
-        value1 = (parameters[0] == 0) ? inputArray[inputArray[index+1]] : inputArray[index+1] 
-        value2 = (parameters[1] == 0) ? inputArray[inputArray[index+2]] : inputArray[index+2]
+        value1 = (parameters[0] == 0) ? inputArray[inputArray[index+1]] : (parameters[0] == 1) ? inputArray[index+1] : relativeBase + value1 
+        value2 = (parameters[1] == 0) ? inputArray[inputArray[index+2]] : (parameters[0] == 1) ? inputArray[index+2] : relativeBase + value1
     }
     // console.log(`value1 ${value1}, value2 ${value2}, value1 == value2 ${value1==value2}... index ${destination} set to ${(value1 == value2) ? 1 : 0}`)
     inputArray[destination] = (value1 == value2) ? 1 : 0
 }
 
-function implementOpp(inputArray, index, quackquack) {
+function implement9(inputArray, index, parameters, relativeBase){
+    if (parameters.length == 0){
+        value1 = inputArray[inputArray[index+1]]
+    }
+    else {
+        value1 = (parameters[0] == 0) ? inputArray[inputArray[index+1]] : (parameters[0] == 1) ? inputArray[index+1] : relativeBase + value1
+    }
+    return relativeBase + value1
+}
+
+function implementOpp(inputArray, index, quackquack, relativeBase) {
     let instruction = decompressOpp(inputArray[index], index)
-    let opcode = instruction[instruction.length - 1]
+    let opcode = (instruction.slice(instruction.length-2).join() == '99') ? '99' : instruction[instruction.length - 1]
     let newIndex
     // console.log(`index = ${index}, instruction = ${instruction}, opcode = ${opcode}`)
     if (opcode == '1' || opcode == '2') {
@@ -142,6 +152,10 @@ function implementOpp(inputArray, index, quackquack) {
         newIndex = index + 4
     }
     else if (opcode == '9') {
+        relativeBase = implement9(inputArray, index, instruction.slice(0, instruction.length - 2).reverse(), relativeBase)
+        newIndex = index + 2
+    }
+    else if (opcode == '99') {
         console.log('shutting down')
         return [index, 'goodbye']
     }
@@ -149,7 +163,7 @@ function implementOpp(inputArray, index, quackquack) {
         return `incorrect opcode at index ${index}`
     }
     
-    return implementOpp(inputArray, newIndex, quackquack)
+    return implementOpp(inputArray, newIndex, quackquack, relativeBase)
 }
 
 
